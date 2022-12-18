@@ -6,7 +6,7 @@ import './App.css'
 
 function App() {
   const [todoList, setTodos] = useState([
-    { id: 1, name: 'todo', completed: false },
+    { id: 1, name: 'todo', completed: true },
     { id: 2, name: 'todo1', completed: false },
     { id: 3, name: 'todo2', completed: false },
     { id: 4, name: 'todo3', completed: false }

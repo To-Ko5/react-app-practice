@@ -1,17 +1,17 @@
 import { Checkbox, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { FC } from 'react'
+import { TodoTypes } from 'src/types/todo'
 
 type Props = {
-  todo: string
-  index: number
+  todo: TodoTypes
 }
-const Todo: FC<Props> = ({ todo, index }) => {
+const Todo: FC<Props> = ({ todo }) => {
   return (
-    <ListItem key={index} role="listitem" button>
+    <ListItem key={todo.id} role="listitem" button>
       <ListItemIcon>
-        <Checkbox tabIndex={-1} disableRipple />
+        <Checkbox checked={todo.completed} tabIndex={-1} disableRipple />
       </ListItemIcon>
-      <ListItemText primary={todo} />
+      <ListItemText primary={todo.name} />
     </ListItem>
   )
 }

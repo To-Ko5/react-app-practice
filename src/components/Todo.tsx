@@ -7,7 +7,7 @@ type Props = {
 }
 const Todo: FC<Props> = ({ todo }) => {
   return (
-    <ListItem key={todo.id} role="listitem" button>
+    <ListItem key={todo.id} role="listitem">
       <ListItemIcon>
         <Checkbox checked={todo.completed} tabIndex={-1} disableRipple />
       </ListItemIcon>

@@ -1,0 +1,22 @@
+{
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "extends": ["tslint-config-standard", "tslint-config-prettier"],
+  "rules": {
+    "prettier": true,
+    "import-name": false,
+    "align": false,
+    "react-hooks-nesting": false,
+    "semicolon": false,
+    "trailing-comma": false,
+    "object-literal-shorthand": false,
+    "no-unused-variable": true,
+    "variable-name": {
+      "options": [
+        "ban-keywords",
+        "check-format",
+        "allow-leading-underscore",
+        "allow-pascal-case"
+      ]
+    }
+  }
+}

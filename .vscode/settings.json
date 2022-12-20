@@ -1,4 +1,12 @@
 {
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifier": "non-relative"
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  //*.ts
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  //*.tsx
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  }
 }

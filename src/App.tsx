@@ -1,16 +1,13 @@
 import { Button, Container, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import TodoList from 'src/components/TodoList'
+import { v4 as uuidv4 } from 'uuid'
+import { TodoTypes } from 'src/types/todo'
 import './App.css'
 
 function App() {
-  const [todoList, setTodoList] = useState([
-    { id: 1, name: 'todo', completed: true },
-    { id: 2, name: 'todo1', completed: false },
-    { id: 3, name: 'todo2', completed: false },
-    { id: 4, name: 'todo3', completed: false }
-  ])
+  const [todoList, setTodoList] = useState<TodoTypes[]>([])
   const [text, setText] = useState('')
 
   const handleInput = (e: string) => {
@@ -19,7 +16,10 @@ function App() {
 
   const handleAddTodo = () => {
     setTodoList((prevTodoList) => {
-      return [...prevTodoList, { id: 2, name: text, completed: false }]
+      return [
+        ...prevTodoList,
+        { id: 2, uuId: uuidv4(), name: text, completed: false }
+      ]
     })
     setText('')
   }

@@ -18,17 +18,31 @@ function App() {
     setTodoList((prevTodoList) => {
       return [
         ...prevTodoList,
-        { id: 2, uuId: uuidv4(), name: text, completed: false }
+        {
+          id: todoList.length + 1,
+          uuId: uuidv4(),
+          name: text,
+          completed: false
+        }
       ]
     })
     setText('')
+  }
+
+  const toggleTodoCheck = (uuId: string) => {
+    const newTodoList = [...todoList]
+    const todo = newTodoList?.find((todo) => todo.uuId === uuId)
+    if (todo) {
+      todo.completed = !todo.completed
+    }
+    setTodoList(newTodoList)
   }
 
   return (
     <>
       <Container maxWidth="sm">
         <Box mt={4} mb={4}>
-          <TodoList todoList={todoList} />
+          <TodoList todoList={todoList} toggleTodoCheck={toggleTodoCheck} />
         </Box>
 
         <TextField

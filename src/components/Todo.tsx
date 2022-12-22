@@ -4,14 +4,19 @@ import { TodoTypes } from 'src/types/todo'
 
 type Props = {
   todo: TodoTypes
+  toggleTodoCheck: (e: string) => void
 }
-const Todo: FC<Props> = ({ todo }) => {
+const Todo: FC<Props> = ({ todo, toggleTodoCheck }) => {
+  const handleToggle = () => {
+    toggleTodoCheck(todo.uuId)
+  }
   return (
-    <ListItem key={todo.id} role="listitem">
+    <ListItem key={todo.id} role="listitem" button onClick={handleToggle}>
       <ListItemIcon>
-        <Checkbox checked={todo.completed} tabIndex={-1} disableRipple />
+        <Checkbox checked={todo.completed} tabIndex={todo.id} disableRipple />
       </ListItemIcon>
-      <ListItemText primary={todo.name} />
+      <ListItemText id={String(todo.id)} primary={todo.name} />
+      {todo.id}
     </ListItem>
   )
 }

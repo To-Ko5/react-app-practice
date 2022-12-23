@@ -1,6 +1,7 @@
 import {
   Button,
   Container,
+  Grid,
   Skeleton,
   TextField,
   Typography
@@ -55,7 +56,7 @@ function App() {
 
   return (
     <>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Box mt={4} mb={4}>
           {todoList.length ? (
             <TodoList todoList={todoList} toggleTodoCheck={toggleTodoCheck} />
@@ -64,19 +65,32 @@ function App() {
           )}
         </Box>
 
-        <TextField
-          id="outlined-basic"
-          label="Outlined"
-          variant="outlined"
-          value={text}
-          onChange={(e) => handleInput(e.target.value)}
-        />
-        <Button variant="contained" onClick={handleAddTodo}>
-          Add
-        </Button>
-        <Button variant="contained" color="error">
-          delete
-        </Button>
+        <Grid container spacing={1} alignItems="ce">
+          <Grid item>
+            <TextField
+              id="outlined-basic"
+              label="Outlined"
+              variant="outlined"
+              value={text}
+              onChange={(e) => handleInput(e.target.value)}
+            />
+          </Grid>
+          <Grid item alignItems="center">
+            <Button variant="contained" onClick={handleAddTodo}>
+              Add
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="outlined" color="error">
+              delete
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" color="error" onClick={handleClear}>
+              completed todo clear
+            </Button>
+          </Grid>
+        </Grid>
 
         <Box>
           <Typography>

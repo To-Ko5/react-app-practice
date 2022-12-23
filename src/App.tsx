@@ -48,6 +48,11 @@ function App() {
     return Number(todoList.filter((todo) => !todo.completed).length)
   }
 
+  const handleClear = () => {
+    const newTodoList = todoList.filter((todo) => !todo.completed)
+    setTodoList(newTodoList)
+  }
+
   return (
     <>
       <Container maxWidth="sm">

@@ -3,6 +3,7 @@ import {
   Container,
   Grid,
   Skeleton,
+  Snackbar,
   TextField,
   Typography
 } from '@mui/material'
@@ -16,6 +17,7 @@ import './App.css'
 function App() {
   const [todoList, setTodoList] = useState<TodoTypes[]>([])
   const [text, setText] = useState('')
+  const [error, setError] = useState(false)
 
   const handleInput = (e: string) => {
     setText(e)
@@ -50,8 +52,18 @@ function App() {
   }
 
   const handleClear = () => {
+    const todoCompleted = todoList.some((todo) => todo.completed === true)
+    if (!todoCompleted) {
+      setError(true)
+      return
+    }
     const newTodoList = todoList.filter((todo) => !todo.completed)
+
     setTodoList(newTodoList)
+  }
+
+  const handleSnackbarClose = () => {
+    setError(false)
   }
 
   return (
@@ -65,7 +77,7 @@ function App() {
           )}
         </Box>
 
-        <Grid container spacing={1} alignItems="ce">
+        <Grid container spacing={1} alignItems="center">
           <Grid item>
             <TextField
               id="outlined-basic"
@@ -81,13 +93,8 @@ function App() {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="outlined" color="error">
+            <Button variant="outlined" color="error" onClick={handleClear}>
               delete
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button variant="contained" color="error" onClick={handleClear}>
-              completed todo clear
             </Button>
           </Grid>
         </Grid>
@@ -98,6 +105,13 @@ function App() {
             <Box component="span">{todoListFilter()}</Box>
           </Typography>
         </Box>
+
+        <Snackbar
+          open={error}
+          autoHideDuration={6000}
+          onClose={handleSnackbarClose}
+          message="削除するタスクを選択してください"
+        />
       </Container>
     </>
   )

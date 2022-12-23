@@ -1,4 +1,10 @@
-import { Button, Container, TextField, Typography } from '@mui/material'
+import {
+  Button,
+  Container,
+  Skeleton,
+  TextField,
+  Typography
+} from '@mui/material'
 import { Box } from '@mui/system'
 import { useState } from 'react'
 import TodoList from 'src/components/TodoList'
@@ -38,11 +44,19 @@ function App() {
     setTodoList(newTodoList)
   }
 
+  const todoListFilter = () => {
+    return Number(todoList.filter((todo) => !todo.completed).length)
+  }
+
   return (
     <>
       <Container maxWidth="sm">
         <Box mt={4} mb={4}>
-          <TodoList todoList={todoList} toggleTodoCheck={toggleTodoCheck} />
+          {todoList.length ? (
+            <TodoList todoList={todoList} toggleTodoCheck={toggleTodoCheck} />
+          ) : (
+            <Skeleton variant="rectangular" height={60} />
+          )}
         </Box>
 
         <TextField
@@ -60,7 +74,10 @@ function App() {
         </Button>
 
         <Box>
-          <Typography>残りのタスク</Typography>
+          <Typography>
+            残りのタスク
+            <Box component="span">{todoListFilter()}</Box>
+          </Typography>
         </Box>
       </Container>
     </>

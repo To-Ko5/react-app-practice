@@ -1,6 +1,6 @@
 import { List, ListItem, Paper } from '@mui/material'
 import { FC } from 'react'
-import Todo from 'src/components/Todo'
+import Todo from 'src/components/todo/Todo'
 import { TodoTypes } from 'src/types/todo'
 
 type Props = {

@@ -12,7 +12,8 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { Container } from '@mui/system'
+import { Box, Container } from '@mui/system'
+import { Link } from 'react-router-dom'
 
 const About = () => {
   return (
@@ -87,6 +88,10 @@ const About = () => {
           </CardContent>
         </Collapse>
       </Card>
+
+      <Box marginTop={5}>
+        <Link to="/">Top</Link>
+      </Box>
     </Container>
   )
 }

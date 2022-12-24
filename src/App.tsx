@@ -1,6 +1,8 @@
 import {
   Button,
   Container,
+  Dialog,
+  DialogTitle,
   Grid,
   Skeleton,
   Snackbar,
@@ -18,6 +20,14 @@ function App() {
   const [todoList, setTodoList] = useState<TodoTypes[]>([])
   const [text, setText] = useState('')
   const [error, setError] = useState(false)
+  const [duplicationError, setDuplicationError] = useState(false)
+  const [editDialog, setEditDialog] = useState(false)
+  const [editText, setEditText] = useState<TodoTypes>({
+    id: 0,
+    uuId: '',
+    name: '',
+    completed: false
+  })
 
   const handleInput = (e: string) => {
     setText(e)
@@ -64,6 +74,54 @@ function App() {
 
   const handleSnackbarClose = () => {
     setError(false)
+    setDuplicationError(false)
+  }
+
+  const handleEditTodo = () => {
+    // 選択されているか確認する
+    const todoCompleted = todoList.some((todo) => todo.completed === true)
+    if (!todoCompleted) {
+      setError(true)
+      return
+    }
+    // チェックの重複が無いか確認する
+    let completedList: TodoTypes[] = []
+    todoList.forEach((todo) => {
+      if (todo.completed) {
+        completedList.push(todo)
+      }
+    })
+
+    if (completedList.length > 1) {
+      setDuplicationError(true)
+      return
+    }
+    if (completedList.length) {
+      setEditText(completedList[0])
+      setEditDialog(true)
+    }
+  }
+
+  const handleEditInput = (e: string) => {
+    setEditText((prevState) => ({ ...prevState, name: e }))
+  }
+
+  const handleCompleteEditTodo = () => {
+    setTodoList((prevState) =>
+      prevState.map((todo) => {
+        if (todo.uuId === editText.uuId) {
+          return {
+            id: editText.id,
+            uuId: editText.uuId,
+            name: editText.name,
+            completed: editText.completed
+          }
+        }
+        return todo
+      })
+    )
+    setEditText({ id: NaN, uuId: '', name: '', completed: false })
+    setEditDialog(false)
   }
 
   return (
@@ -92,6 +150,15 @@ function App() {
               Add
             </Button>
           </Grid>
+          <Grid item alignItems="center">
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={handleEditTodo}
+            >
+              Edit
+            </Button>
+          </Grid>
           <Grid item>
             <Button variant="outlined" color="error" onClick={handleClear}>
               delete
@@ -106,11 +173,36 @@ function App() {
           </Typography>
         </Box>
 
+        <Dialog onClose={() => setEditDialog(false)} open={editDialog}>
+          <Box padding={2}>
+            <DialogTitle>編集する</DialogTitle>
+            <Box mb={2}>
+              <TextField
+                id="outlined-basic"
+                label="Outlined"
+                variant="outlined"
+                value={editText?.name}
+                onChange={(e) => handleEditInput(e.target.value)}
+              />
+            </Box>
+            <Box textAlign="right">
+              <Button onClick={handleCompleteEditTodo}>完了</Button>
+            </Box>
+          </Box>
+        </Dialog>
+
         <Snackbar
           open={error}
           autoHideDuration={6000}
           onClose={handleSnackbarClose}
           message="削除するタスクを選択してください"
+        />
+
+        <Snackbar
+          open={duplicationError}
+          autoHideDuration={2000}
+          onClose={handleSnackbarClose}
+          message="編集するタスクを一つ選択してください"
         />
       </Container>
     </>

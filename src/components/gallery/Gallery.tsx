@@ -2,7 +2,6 @@ import { Container, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import GalleryList from 'src/components/gallery/GalleryList'
 import { Gallery as GalleryTypes } from 'src/types/gallery'
-import Pagination from 'src/components/gallery/Pagination'
 
 const Gallery = () => {
   const [galleries, setGalleries] = useState<GalleryTypes[]>([])
@@ -24,7 +23,6 @@ const Gallery = () => {
         Gallery
       </Typography>
       <GalleryList galleries={galleries} />
-      <Pagination />
     </Container>
   )
 }

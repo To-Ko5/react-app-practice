@@ -1,9 +1,9 @@
-import { Box } from '@mui/material'
-import React, { FC, useState } from 'react'
+import Masonry from '@mui/lab/Masonry'
+import { Box, Pagination } from '@mui/material'
+import { FC, useState } from 'react'
+import ReactPaginate from 'react-paginate'
 import GalleryImage from 'src/components/gallery/GalleryImage'
 import { Gallery } from 'src/types/gallery'
-import Masonry from '@mui/lab/Masonry'
-import ReactPaginate from 'react-paginate'
 
 type Props = {
   galleries: Gallery[]
@@ -11,6 +11,7 @@ type Props = {
 const GalleryList: FC<Props> = (props) => {
   const { galleries } = props
   const [galleriesOffset, setGalleriesOffset] = useState(0)
+  const [page, setPage] = useState(1)
   const showGalleryCount = 6
   const endOffset = galleriesOffset + showGalleryCount
   const currentGalleries = galleries.slice(galleriesOffset, endOffset)
@@ -18,6 +19,13 @@ const GalleryList: FC<Props> = (props) => {
 
   const handlePageClick = (e: { selected: number }) => {
     const newOffset = (e.selected * showGalleryCount) % galleries.length
+    setGalleriesOffset(newOffset)
+  }
+
+  const handlePageClickMui = (page: number) => {
+    const beforePage = page - 1
+    setPage(page)
+    const newOffset = (beforePage * showGalleryCount) % galleries.length
     setGalleriesOffset(newOffset)
   }
 
@@ -31,6 +39,11 @@ const GalleryList: FC<Props> = (props) => {
         </Masonry>
       </Box>
       <ReactPaginate pageCount={pageCount} onPageChange={handlePageClick} />
+      <Pagination
+        count={pageCount}
+        page={page}
+        onChange={(e, page) => handlePageClickMui(page)}
+      />
     </>
   )
 }

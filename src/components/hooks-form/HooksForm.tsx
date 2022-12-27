@@ -76,6 +76,8 @@ const HooksForm = () => {
             </Box>
             <Box>
               <TextField
+                label="本文"
+                type="text"
                 {...register('text', {
                   required: '必須入力',
                   maxLength: {
@@ -83,6 +85,8 @@ const HooksForm = () => {
                     message: '最大50文字です'
                   }
                 })}
+                error={errors.text ? true : false}
+                helperText={errors.text?.message as string}
                 multiline
                 fullWidth
                 rows={5}

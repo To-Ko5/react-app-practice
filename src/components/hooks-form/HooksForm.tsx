@@ -1,4 +1,13 @@
-import { Button, Select, TextareaAutosize, TextField } from '@mui/material'
+import {
+  Box,
+  Button,
+  Container,
+  ListItem,
+  Select,
+  Stack,
+  TextareaAutosize,
+  TextField
+} from '@mui/material'
 import React, { useCallback } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
@@ -25,60 +34,75 @@ const HooksForm = () => {
   }, [])
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        label="名前"
-        type="text"
-        {...register('name', {
-          required: '必須入力',
-          maxLength: {
-            value: 50,
-            message: '最大50文字です'
-          }
-        })}
-        error={errors.name ? true : false}
-        helperText={errors.name?.message as string}
-      />
+    <Container maxWidth="md">
+      <Box maxWidth="500px" style={{ margin: '80px auto 0' }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={4}>
+            <Box>
+              <TextField
+                label="名前"
+                type="text"
+                {...register('name', {
+                  required: '必須入力',
+                  maxLength: {
+                    value: 50,
+                    message: '最大50文字です'
+                  }
+                })}
+                error={errors.name ? true : false}
+                helperText={errors.name?.message as string}
+                fullWidth
+              />
+            </Box>
+            <Box>
+              <TextField
+                label="メールアドレス"
+                type="email"
+                {...register('email', {
+                  pattern: {
+                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                    message: 'メールアドレスで入力してください'
+                  },
+                  required: '必須入力',
+                  maxLength: {
+                    value: 50,
+                    message: '最大50文字です'
+                  }
+                })}
+                error={errors.email ? true : false}
+                helperText={errors.email?.message as string}
+                fullWidth
+              />
+            </Box>
+            <Box>
+              <TextareaAutosize
+                {...register('text', {
+                  required: '必須入力',
+                  maxLength: {
+                    value: 200,
+                    message: '最大50文字です'
+                  }
+                })}
+              />
+            </Box>
+            <Box>
+              <Button
+                type="button"
+                variant="contained"
+                onClick={handleSubmit(clickButton)}
+                style={{ marginRight: '20px' }}
+              >
+                送信
+              </Button>
 
-      <TextField
-        label="メールアドレス"
-        type="email"
-        {...register('email', {
-          pattern: {
-            value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-            message: 'メールアドレスで入力してください'
-          },
-          required: '必須入力',
-          maxLength: {
-            value: 50,
-            message: '最大50文字です'
-          }
-        })}
-        error={errors.email ? true : false}
-        helperText={errors.email?.message as string}
-      />
-
-      <TextareaAutosize
-        {...register('text', {
-          required: '必須入力',
-          maxLength: {
-            value: 200,
-            message: '最大50文字です'
-          }
-        })}
-      />
-      <Button
-        type="button"
-        variant="contained"
-        onClick={handleSubmit(clickButton)}
-      >
-        送信
-      </Button>
-
-      <Button type="button" variant="outlined" onClick={clickReset}>
-        リセット
-      </Button>
-    </form>
+              <Button type="button" variant="outlined" onClick={clickReset}>
+                リセット
+              </Button>
+            </Box>
+          </Stack>
+        </form>
+      </Box>
+    </Container>
   )
 }
 

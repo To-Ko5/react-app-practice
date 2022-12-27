@@ -75,7 +75,7 @@ const HooksForm = () => {
               />
             </Box>
             <Box>
-              <TextareaAutosize
+              <TextField
                 {...register('text', {
                   required: '必須入力',
                   maxLength: {
@@ -83,20 +83,26 @@ const HooksForm = () => {
                     message: '最大50文字です'
                   }
                 })}
+                multiline
+                fullWidth
+                rows={5}
               />
             </Box>
             <Box>
               <Button
                 type="button"
-                variant="contained"
-                onClick={handleSubmit(clickButton)}
+                variant="outlined"
+                onClick={clickReset}
                 style={{ marginRight: '20px' }}
               >
-                送信
-              </Button>
-
-              <Button type="button" variant="outlined" onClick={clickReset}>
                 リセット
+              </Button>
+              <Button
+                type="button"
+                variant="contained"
+                onClick={handleSubmit(clickButton)}
+              >
+                送信
               </Button>
             </Box>
           </Stack>

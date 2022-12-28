@@ -1,4 +1,4 @@
-import { Container, TextField } from '@mui/material'
+import { Container, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -15,9 +15,9 @@ const SearchApp = () => {
 
   return (
     <>
-      <Container maxWidth="md" style={{ margin: '50px auto 0' }}>
-        <Box width="400px" style={{ margin: '0 auto' }}>
-          <Box>
+      <Container maxWidth="md" sx={{ mt: 6, mx: 'auto' }}>
+        <Box width="400px" mx={'auto'}>
+          <Box mb={5}>
             <TextField
               label="検索"
               type="text"
@@ -35,6 +35,9 @@ const SearchApp = () => {
           </Box>
 
           <Box>
+            <Typography component="p" textAlign="center" mb={5}>
+              検索結果
+            </Typography>
             <Box>dddddd</Box>
           </Box>
         </Box>

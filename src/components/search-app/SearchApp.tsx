@@ -1,6 +1,6 @@
 import { Container, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const SearchApp = () => {
@@ -12,6 +12,20 @@ const SearchApp = () => {
     reset,
     formState: { errors, isSubmitting }
   } = useForm<{ search: string }>({})
+
+  const [users, setUsers] = useState<[]>([])
+
+  useEffect(() => {
+    const url = 'https://jsonplaceholder.typicode.com/users'
+    const getUsers = async () => {
+      const response = await fetch(url).then((res) => res.json())
+      if (response) {
+        setUsers(response)
+      }
+      console.log(users)
+    }
+    getUsers()
+  }, [])
 
   return (
     <>
@@ -38,7 +52,11 @@ const SearchApp = () => {
             <Typography component="p" textAlign="center" mb={5}>
               検索結果
             </Typography>
-            <Box>dddddd</Box>
+            <Box>
+              {users.map((user: any) => {
+                return <Box key={user.id}>{user.name}</Box>
+              })}
+            </Box>
           </Box>
         </Box>
       </Container>

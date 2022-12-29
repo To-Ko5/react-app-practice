@@ -1,6 +1,6 @@
 import { Container, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const SearchApp = () => {
@@ -14,18 +14,31 @@ const SearchApp = () => {
   } = useForm<{ search: string }>({})
 
   const [users, setUsers] = useState<[]>([])
+  const [searchQuery, setSearchQuery] = useState<[]>([])
 
   useEffect(() => {
     const url = 'https://jsonplaceholder.typicode.com/users'
     const getUsers = async () => {
       const response = await fetch(url).then((res) => res.json())
-      if (response) {
+      if (response.length) {
         setUsers(response)
       }
-      console.log(users)
     }
     getUsers()
   }, [])
+
+  const handleSearch = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const value = e.target.value
+
+      const newUsers = users
+      const query: any = newUsers.filter((user: any) => {
+        return user.name.toLowerCase().includes(value)
+      })
+      setSearchQuery(query)
+    },
+    [users]
+  )
 
   return (
     <>
@@ -45,6 +58,7 @@ const SearchApp = () => {
               error={errors.search ? true : false}
               helperText={errors.search?.message as string}
               fullWidth
+              onChange={(e) => handleSearch(e)}
             />
           </Box>
 
@@ -52,6 +66,12 @@ const SearchApp = () => {
             <Typography component="p" textAlign="center" mb={5}>
               検索結果
             </Typography>
+            <Box>
+              {searchQuery.map((user: any) => {
+                return <Box key={user.id}>{user.name}</Box>
+              })}
+            </Box>
+            <hr />
             <Box>
               {users.map((user: any) => {
                 return <Box key={user.id}>{user.name}</Box>

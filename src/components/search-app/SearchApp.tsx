@@ -22,6 +22,7 @@ const SearchApp = () => {
       const response = await fetch(url).then((res) => res.json())
       if (response.length) {
         setUsers(response)
+        setSearchQuery(response)
       }
     }
     getUsers()
@@ -68,12 +69,6 @@ const SearchApp = () => {
             </Typography>
             <Box>
               {searchQuery.map((user: any) => {
-                return <Box key={user.id}>{user.name}</Box>
-              })}
-            </Box>
-            <hr />
-            <Box>
-              {users.map((user: any) => {
                 return <Box key={user.id}>{user.name}</Box>
               })}
             </Box>

@@ -6,6 +6,7 @@ import Gallery from 'src/components/gallery/Gallery'
 import HooksForm from 'src/components/hooks-form/HooksForm'
 import SearchApp from 'src/components/search-app/SearchApp'
 import TodoForm from 'src/components/todo/TodoForm'
+import Login from 'src/components/login/Login'
 
 import './App.css'
 
@@ -18,6 +19,7 @@ const App = () => (
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/hooks-form" element={<HooksForm />} />
       <Route path="/search-app" element={<SearchApp />} />
+      <Route path="/login" element={<Login />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>

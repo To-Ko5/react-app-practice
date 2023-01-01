@@ -26,29 +26,27 @@ const Login = () => {
   return (
     <>
       <Container maxWidth="md">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box maxWidth="600px" mx="0 auto" mt={10} boxShadow={4} p={4}>
-            <Stack spacing={4}>
-              <Typography component="p" fontSize={20}>
+        <Box maxWidth="600px" mx="0 auto" mt={10} boxShadow={4} p={4}>
+          <Stack component="form" spacing={4} onSubmit={handleSubmit(onSubmit)}>
+            <Typography component="p" fontSize={20}>
+              ログイン
+            </Typography>
+            <Box>
+              <LoginTextField />
+            </Box>
+            <Box>
+              <LoginTextField />
+            </Box>
+            <Box>
+              <LoginCheckBox />
+            </Box>
+            <Box>
+              <Button type="submit" fullWidth variant="contained">
                 ログイン
-              </Typography>
-              <Box>
-                <LoginTextField />
-              </Box>
-              <Box>
-                <LoginTextField />
-              </Box>
-              <Box>
-                <LoginCheckBox />
-              </Box>
-              <Box>
-                <Button fullWidth variant="contained">
-                  ログイン
-                </Button>
-              </Box>
-            </Stack>
-          </Box>
-        </form>
+              </Button>
+            </Box>
+          </Stack>
+        </Box>
       </Container>
     </>
   )

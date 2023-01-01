@@ -19,30 +19,36 @@ const Login = () => {
     reset,
     formState: { errors, isSubmitting }
   } = useForm<LoginForm>({})
+
+  const onSubmit = (data: any) => {
+    console.log(data)
+  }
   return (
     <>
       <Container maxWidth="md">
-        <Box maxWidth="600px" mx="0 auto" mt={10} boxShadow={4} p={4}>
-          <Stack spacing={4}>
-            <Typography component="p" fontSize={20}>
-              ログイン
-            </Typography>
-            <Box>
-              <LoginTextField />
-            </Box>
-            <Box>
-              <LoginTextField />
-            </Box>
-            <Box>
-              <LoginCheckBox />
-            </Box>
-            <Box>
-              <Button fullWidth variant="contained">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box maxWidth="600px" mx="0 auto" mt={10} boxShadow={4} p={4}>
+            <Stack spacing={4}>
+              <Typography component="p" fontSize={20}>
                 ログイン
-              </Button>
-            </Box>
-          </Stack>
-        </Box>
+              </Typography>
+              <Box>
+                <LoginTextField />
+              </Box>
+              <Box>
+                <LoginTextField />
+              </Box>
+              <Box>
+                <LoginCheckBox />
+              </Box>
+              <Box>
+                <Button fullWidth variant="contained">
+                  ログイン
+                </Button>
+              </Box>
+            </Stack>
+          </Box>
+        </form>
       </Container>
     </>
   )

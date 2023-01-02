@@ -2,6 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import { useForm } from 'react-hook-form'
 import LoginCheckBox from 'src/components/login/LoginCheckBox'
+import LoginSelectBox from 'src/components/login/LoginSelectBox'
 import LoginTextField from 'src/components/login/LoginTextField'
 
 type LoginForm = {
@@ -36,6 +37,9 @@ const Login = () => {
             </Box>
             <Box>
               <LoginTextField />
+            </Box>
+            <Box>
+              <LoginSelectBox />
             </Box>
             <Box>
               <LoginCheckBox />

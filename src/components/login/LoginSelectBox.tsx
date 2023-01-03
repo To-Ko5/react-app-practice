@@ -1,33 +1,47 @@
 import {
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent
 } from '@mui/material'
 import { useState } from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
 
 const LoginSelectBox = () => {
-  const [age, setAge] = useState('')
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string)
-  }
+  const {
+    control,
+    formState: { errors }
+  } = useFormContext()
+
   return (
     <>
-      <FormControl fullWidth>
-        <InputLabel id="age-select-label">Age</InputLabel>
-        <Select
-          labelId="age-select-label"
-          id="age-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
+      <Controller
+        name="age"
+        control={control}
+        defaultValue=""
+        rules={{
+          required: { value: true, message: '必須入力です' }
+        }}
+        render={({ field, fieldState }) => (
+          <FormControl fullWidth error={errors.age ? true : false}>
+            <InputLabel id="age-select-label">Age</InputLabel>
+            <Select
+              labelId="age-select-label"
+              id="age-select"
+              label="Age"
+              {...field}
+              error={errors.age ? true : false}
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+            <FormHelperText>{fieldState.error?.message}</FormHelperText>
+          </FormControl>
+        )}
+      />
     </>
   )
 }

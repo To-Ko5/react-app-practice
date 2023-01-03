@@ -18,14 +18,18 @@ const LoginRadioButton = () => {
       <Controller
         name="gender"
         control={control}
-        defaultValue=""
         rules={{
           required: { value: true, message: '必須入力です' }
         }}
         render={({ field, fieldState }) => (
           <FormControl {...field}>
             <FormLabel id="gender-group-label">Gender</FormLabel>
-            <RadioGroup row aria-labelledby="gender-group-label" name="gender">
+            <RadioGroup
+              row
+              aria-labelledby="gender-group-label"
+              name="gender"
+              value={field.value ? field.value : 'female'}
+            >
               <FormControlLabel
                 value="female"
                 control={<Radio />}

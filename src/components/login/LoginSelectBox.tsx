@@ -3,10 +3,8 @@ import {
   FormHelperText,
   InputLabel,
   MenuItem,
-  Select,
-  SelectChangeEvent
+  Select
 } from '@mui/material'
-import { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 const LoginSelectBox = () => {

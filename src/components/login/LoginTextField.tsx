@@ -10,7 +10,6 @@ const LoginTextField: FC<{ type: string }> = ({ type }) => {
   } = useFormContext()
 
   const label = type === 'name' ? '名前' : 'パスワード'
-  console.log(errors[type])
 
   return (
     <>

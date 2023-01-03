@@ -1,5 +1,6 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import { Container } from '@mui/system'
+import { useCallback, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import LoginCheckBox from 'src/components/login/LoginCheckBox'
 import LoginRadioButton from 'src/components/login/LoginRadioButton'
@@ -25,10 +26,20 @@ const Login = () => {
     formState: { errors, isSubmitting }
   } = methods
 
-  const onSubmit = (data: LoginForm) => {
+  useEffect(() => {
+    const getUser = localStorage.getItem('user')
+    if (getUser) {
+      const user = JSON.parse(getUser)
+      console.log(user)
+      reset(user)
+    }
+  }, [])
+
+  const onSubmit = useCallback((data: LoginForm) => {
     console.log(data)
     localStorage.setItem('user', JSON.stringify(data))
-  }
+  }, [])
+
   return (
     <>
       <FormProvider {...methods}>

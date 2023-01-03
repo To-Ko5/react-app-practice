@@ -25,8 +25,9 @@ const Login = () => {
     formState: { errors, isSubmitting }
   } = methods
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: LoginForm) => {
     console.log(data)
+    localStorage.setItem('user', JSON.stringify(data))
   }
   return (
     <>

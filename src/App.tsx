@@ -9,6 +9,7 @@ import TodoForm from 'src/components/todo/TodoForm'
 import Login from 'src/components/login/Login'
 
 import './App.css'
+import LoginComplete from 'src/components/login/LoginComplete'
 
 const App = () => (
   <BrowserRouter>
@@ -20,6 +21,7 @@ const App = () => (
       <Route path="/hooks-form" element={<HooksForm />} />
       <Route path="/search-app" element={<SearchApp />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/login-complete" element={<LoginComplete />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>

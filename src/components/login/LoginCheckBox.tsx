@@ -17,7 +17,7 @@ const LoginCheckBox = () => {
         render={({ field }) => (
           <FormControlLabel
             {...field}
-            control={<Checkbox name="loginedCheck" />}
+            control={<Checkbox name="loginedCheck" checked={field.value} />}
             label="ログイン状態を保持する"
           />
         )}

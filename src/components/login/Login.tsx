@@ -6,17 +6,10 @@ import LoginCheckBox from 'src/components/login/LoginCheckBox'
 import LoginRadioButton from 'src/components/login/LoginRadioButton'
 import LoginSelectBox from 'src/components/login/LoginSelectBox'
 import LoginTextField from 'src/components/login/LoginTextField'
-
-type LoginForm = {
-  name: string
-  password: string
-  age: string
-  gender: number
-  loginedCheck: boolean
-}
+import { User } from 'src/types/user'
 
 const Login = () => {
-  const methods = useForm<LoginForm>({})
+  const methods = useForm<User>({})
   const {
     register,
     handleSubmit,
@@ -35,7 +28,7 @@ const Login = () => {
     }
   }, [])
 
-  const onSubmit = useCallback((data: LoginForm) => {
+  const onSubmit = useCallback((data: User) => {
     console.log(data)
     localStorage.setItem('user', JSON.stringify(data))
   }, [])

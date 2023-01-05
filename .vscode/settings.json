@@ -8,5 +8,6 @@
   //*.tsx
   "[typescriptreact]": {
     "editor.formatOnSave": true
-  }
+  },
+  "cSpell.words": ["logined"]
 }

@@ -2,13 +2,18 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import { useCallback, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import LoginCheckBox from 'src/components/login/LoginCheckBox'
 import LoginRadioButton from 'src/components/login/LoginRadioButton'
 import LoginSelectBox from 'src/components/login/LoginSelectBox'
 import LoginTextField from 'src/components/login/LoginTextField'
+import { useUser } from 'src/context/UserContext'
 import { User } from 'src/types/user'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const { user, setUser, isLoading } = useUser()
+
   const methods = useForm<User>({})
   const {
     register,
@@ -23,15 +28,17 @@ const Login = () => {
     const getUser = localStorage.getItem('user')
     if (getUser) {
       const user = JSON.parse(getUser)
-      console.log(user)
       reset(user)
     }
   }, [])
 
-  const onSubmit = useCallback((data: User) => {
-    console.log(data)
-    localStorage.setItem('user', JSON.stringify(data))
-  }, [])
+  const onSubmit = useCallback(
+    (data: User) => {
+      setUser(data)
+      navigate('/login-complete')
+    },
+    [user]
+  )
 
   return (
     <>

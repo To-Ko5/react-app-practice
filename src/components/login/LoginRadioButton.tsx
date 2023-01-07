@@ -5,13 +5,17 @@ import {
   Radio,
   RadioGroup
 } from '@mui/material'
+import { useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 const LoginRadioButton = () => {
   const {
     control,
+    getValues,
     formState: { errors }
   } = useFormContext()
+
+  useEffect(() => {})
 
   return (
     <>
@@ -28,19 +32,18 @@ const LoginRadioButton = () => {
               row
               aria-labelledby="gender-group-label"
               name="gender"
-              value={field.value ? field.value : 'female'}
+              onChange={(e) => {
+                const value = parseInt(e.target.value)
+                if (!isNaN(value)) {
+                  field.onChange(value)
+                }
+              }}
+              value={field.value === undefined ? 0 : field.value}
             >
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
-              />
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="Other"
-              />
+              {field.value}
+              <FormControlLabel value="0" control={<Radio />} label="Female" />
+              <FormControlLabel value="1" control={<Radio />} label="Male" />
+              <FormControlLabel value="2" control={<Radio />} label="Other" />
             </RadioGroup>
           </FormControl>
         )}

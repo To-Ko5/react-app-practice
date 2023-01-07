@@ -23,7 +23,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>()
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    const getUser = localStorage.getItem('user')
+    if (getUser) {
+      setUser(JSON.parse(getUser))
+    }
+  }, [])
 
   return (
     <UserContext.Provider

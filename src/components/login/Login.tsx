@@ -35,6 +35,11 @@ const Login = () => {
   const onSubmit = useCallback(
     (data: User) => {
       setUser(data)
+      if (data.loginedCheck) {
+        localStorage.setItem('user', JSON.stringify(data))
+      } else {
+        localStorage.removeItem('user')
+      }
       navigate('/login-complete')
     },
     [user]

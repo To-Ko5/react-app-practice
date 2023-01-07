@@ -21,6 +21,7 @@ const Login = () => {
     watch,
     control,
     reset,
+    setValue,
     formState: { errors, isSubmitting }
   } = methods
 
@@ -29,6 +30,8 @@ const Login = () => {
     if (getUser) {
       const user = JSON.parse(getUser)
       reset(user)
+    } else {
+      setValue('gender', 0)
     }
   }, [])
 

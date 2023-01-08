@@ -1,17 +1,26 @@
 import { Box, Button, Container, Stack, Typography } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from 'src/context/UserContext'
 
 const LoginComplete = () => {
   const navigate = useNavigate()
-  const { user, isLoading } = useUser()
+  const { user, isLoading, setUser } = useUser()
 
   useEffect(() => {
     if (!user) {
       return navigate('/login')
     }
   }, [])
+
+  const logout = useCallback(() => {
+    setUser(null)
+    const getUser = localStorage.getItem('user')
+    if (getUser) {
+      localStorage.removeItem('user')
+    }
+    navigate('/login')
+  }, [user])
 
   return (
     <Container maxWidth="md">
@@ -24,9 +33,9 @@ const LoginComplete = () => {
           <Box>{user?.password}</Box>
           <Box>{user?.age}</Box>
           <Box>{user?.gender}</Box>
-          <Box>{user?.loginedCheck}</Box>
+          <Box>{user?.loginedCheck ? 'true' : 'false'}</Box>
           <Box>
-            <Button type="submit" fullWidth variant="outlined">
+            <Button type="submit" fullWidth variant="outlined" onClick={logout}>
               ログアウト
             </Button>
           </Box>
